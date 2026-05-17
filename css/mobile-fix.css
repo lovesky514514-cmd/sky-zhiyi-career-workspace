@@ -1,0 +1,489 @@
+/* SKY职忆手机端补丁：只在窄屏生效 */
+@media (max-width: 820px) {
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    font-size: 15px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body:before {
+    background:
+      radial-gradient(circle at 12% 6%, rgba(37, 99, 235, .10), transparent 28%),
+      linear-gradient(180deg, #f7faff 0%, #eef4ff 100%);
+  }
+
+  #particleCanvas {
+    opacity: .20;
+  }
+
+  .landing-page {
+    align-items: flex-start;
+    padding: 12px;
+    min-height: 100vh;
+  }
+
+  .landing-shell {
+    width: 100%;
+  }
+
+  .landing-top {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    margin-bottom: 12px;
+    padding: 6px 0;
+    gap: 8px;
+    background: rgba(246, 249, 255, .82);
+    backdrop-filter: blur(14px);
+  }
+
+  .landing-brand {
+    min-width: 0;
+    flex: 1;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 18px;
+  }
+
+  .landing-brand img {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+
+  .landing-brand strong {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
+  .landing-brand span {
+    font-size: .72rem;
+    white-space: nowrap;
+  }
+
+  .landing-top-actions {
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .theme-toggle,
+  .landing-login {
+    padding: 9px 12px !important;
+    border-radius: 999px !important;
+    font-size: .82rem !important;
+    white-space: nowrap;
+  }
+
+  .landing-main {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .landing-hero-card,
+  .landing-overview-card,
+  .landing-strip,
+  .hero-board,
+  .daily-panel,
+  .stat-card,
+  .workflow-board,
+  .insight-card,
+  .page-head,
+  .wizard-card,
+  .process-card,
+  .filter-card,
+  .job-results,
+  .interview-left,
+  .interview-right,
+  .memory-board,
+  .settings-card,
+  .builder-card,
+  .dashboard-hero,
+  .dashboard-card,
+  .workspace-path,
+  .dashboard-side {
+    border-radius: 22px !important;
+  }
+
+  .landing-hero-card {
+    padding: 24px 18px;
+    min-height: auto;
+  }
+
+  .landing-eyebrow,
+  .mini-label {
+    font-size: .72rem;
+    letter-spacing: .07em;
+  }
+
+  .landing-hero-card h1 {
+    font-size: 2.05rem;
+    line-height: 1.12;
+    letter-spacing: -.055em;
+  }
+
+  .landing-hero-card p {
+    margin-top: 14px;
+    font-size: .95rem;
+    line-height: 1.68;
+  }
+
+  .landing-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .landing-primary,
+  .landing-secondary,
+  .primary-btn,
+  .primary-pill,
+  .ghost-btn,
+  .tiny-btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 16px;
+    font-size: .94rem;
+  }
+
+  .landing-overview-card {
+    padding: 18px;
+  }
+
+  .overview-score {
+    margin: 16px 0;
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .overview-score strong,
+  .overview-score strong#landingReadinessScore,
+  .dashboard-score-card strong,
+  #readinessScore,
+  #settingsResumeHealth {
+    font-size: 1.7rem !important;
+    line-height: 1.15;
+  }
+
+  .landing-clear-btn {
+    margin: 0 0 14px;
+    padding: 11px 14px;
+  }
+
+  .overview-list {
+    gap: 10px;
+  }
+
+  .overview-list div {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .landing-strip {
+    margin-top: 12px;
+    padding: 12px;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-strip div {
+    padding: 13px;
+    border-radius: 16px;
+  }
+
+  .landing-strip b {
+    font-size: 1rem;
+  }
+
+  .register-dialog {
+    padding: 26px 18px;
+    border-radius: 24px;
+  }
+
+  .side-nav {
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+    width: min(86vw, 300px);
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .nav-group {
+    gap: 6px;
+  }
+
+  .nav-link {
+    padding: 12px;
+    border-radius: 15px;
+    font-size: .92rem;
+  }
+
+  .app {
+    padding-left: 0;
+  }
+
+  .topbar {
+    margin: 0;
+    min-height: auto;
+    padding: 12px 14px;
+    gap: 10px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    width: 100%;
+    min-height: auto;
+    gap: 8px;
+  }
+
+  .top-title strong {
+    font-size: 1.05rem;
+    line-height: 1.2;
+  }
+
+  .top-title span {
+    font-size: .72rem;
+  }
+
+  .icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    flex: 0 0 auto;
+  }
+
+  .global-search {
+    min-width: 100%;
+    height: 46px;
+    border-radius: 16px;
+    order: 3;
+  }
+
+  .main-view {
+    max-width: 100%;
+    padding: 14px 12px 34px;
+  }
+
+  .home-grid,
+  .dashboard-shell,
+  .jobs-layout,
+  .interview-layout,
+  .builder-layout,
+  .builder-generate-grid,
+  .settings-grid,
+  .settings-grid-clean,
+  .workspace-path-grid,
+  .job-grid,
+  .memory-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .hero-board,
+  .daily-panel,
+  .stat-card,
+  .workflow-board,
+  .insight-card,
+  .page-head,
+  .wizard-card,
+  .filter-card,
+  .job-results,
+  .memory-board,
+  .interview-left,
+  .interview-right,
+  .settings-card,
+  .builder-card,
+  .dashboard-hero,
+  .dashboard-card,
+  .workspace-path,
+  .dashboard-side {
+    padding: 18px !important;
+    min-height: auto !important;
+  }
+
+  .hero-board h1,
+  .dashboard-hero h1 {
+    font-size: 2.05rem !important;
+    line-height: 1.14;
+    letter-spacing: -.052em;
+  }
+
+  .page-head {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 14px;
+  }
+
+  .page-head h1,
+  .step-header h2 {
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+
+  .page-head p,
+  .step-header p,
+  .dashboard-hero p,
+  .hero-board p {
+    font-size: .94rem;
+    line-height: 1.62;
+  }
+
+  .path-rail,
+  .workflow-steps,
+  .form-grid,
+  .choice-row,
+  .split-panels,
+  .complete-grid,
+  .builder-form-grid,
+  .template-grid,
+  .innovation-metrics {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  .path-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    margin-top: 18px;
+  }
+
+  .path-rail div,
+  .workflow-steps button,
+  .action-list button,
+  .workspace-path-grid button,
+  .choice-card,
+  .template-card,
+  .job-card,
+  .memory-card,
+  .question-card,
+  .experience-card,
+  .inner-panel,
+  .empty-card {
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .process-card,
+  .builder-steps {
+    display: flex !important;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 12px !important;
+    position: static;
+    scrollbar-width: none;
+  }
+
+  .process-card::-webkit-scrollbar,
+  .builder-steps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .process-step,
+  .builder-step {
+    min-width: 112px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 10px !important;
+    font-size: .84rem;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    min-height: 44px;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 16px;
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+
+  .upload-zone {
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+    border-radius: 18px !important;
+  }
+
+  .button-row,
+  .step-actions,
+  .builder-actions,
+  .job-actions,
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .button-row button,
+  .step-actions button,
+  .builder-actions button,
+  .job-actions button,
+  .hero-actions button {
+    width: 100%;
+  }
+
+  .job-pagination,
+  .page-numbers {
+    justify-content: center;
+  }
+
+  .page-numbers .page-num {
+    min-width: 38px;
+    padding: 8px 10px;
+  }
+
+  .resume-preview-wrap {
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .resume-preview {
+    padding: 18px;
+    min-width: 0;
+    min-height: auto;
+    font-size: .9rem;
+  }
+
+  .resume-headline h2 {
+    font-size: 1.5rem;
+  }
+
+  .toast-host {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .toast {
+    width: 100%;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 390px) {
+  .landing-hero-card h1,
+  .hero-board h1,
+  .dashboard-hero h1 {
+    font-size: 1.78rem !important;
+  }
+
+  .landing-strip,
+  .path-rail {
+    grid-template-columns: 1fr !important;
+  }
+
+  .landing-brand span {
+    display: none;
+  }
+
+  .theme-toggle {
+    display: none !important;
+  }
+}

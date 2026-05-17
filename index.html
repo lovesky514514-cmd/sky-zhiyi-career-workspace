@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKY职忆｜AI Career Workspace</title>
+  <link rel="stylesheet" href="css/style.css?v=hero_title_side_fix_1" />
+  <link rel="stylesheet" href="css/mobile-fix.css" />
+
+
+
+
+  <link rel="icon" type="image/png" href="/assets/logo_sky_zhiyi.png?v=favicon_1">
+  <link rel="shortcut icon" type="image/png" href="/assets/logo_sky_zhiyi.png?v=favicon_1">
+  <link rel="apple-touch-icon" href="/assets/logo_sky_zhiyi.png?v=favicon_1">
+
+</head>
+<body class="landing-mode">
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+  <div class="page-shade" id="pageShade"></div>
+  <div class="toast-host" id="toastHost"></div>
+
+  <section class="landing-page" id="landingPage">
+    <div class="landing-shell">
+      <header class="landing-top">
+        <a class="landing-brand" href="javascript:void(0)">
+          <img src="assets/logo_sky_zhiyi.png" alt="SKY职忆 logo" />
+          <div><strong>SKY职忆</strong><span>AI Career Workspace</span></div>
+        </a>
+        <div class="landing-top-actions">
+          <button class="theme-toggle" id="landingThemeToggle" type="button" aria-label="切换深色模式">🌙 深色</button>
+          <button class="landing-login" id="landingTopStart">进入工作台</button>
+        </div>
+      </header>
+
+      <main class="landing-main">
+        <section class="landing-hero-card">
+          <div class="landing-eyebrow">Career OS for Students</div>
+          <h1><span class="hero-title-line">从第一份简历开始，</span><span class="hero-title-line">慢慢搭好你的求职节奏。</span></h1>
+          <p>不用一次准备完。先上传一份材料，系统会陪你完成诊断、岗位匹配和面试练习，把每一步都整理成可复用的求职资产。</p>
+          <div class="landing-actions">
+            <button class="landing-primary" id="landingStartBtn">开始使用</button>
+            <button class="landing-secondary" id="landingRegisterBtn">注册账号</button>
+          </div>
+        </section>
+
+        <aside class="landing-overview-card">
+          <div class="overview-head">
+            <span>Overview</span>
+            <b>求职状态总览</b>
+          </div>
+          <div class="overview-score">
+            <strong id="landingReadinessScore">还未开始准备</strong>
+            <span>流程进度</span>
+          </div>
+          <button class="landing-clear-btn" id="landingClearAllBtn" type="button">一键清空进程</button>
+          <div class="overview-list">
+            <div><span></span><b>简历诊断</b><small>发现缺失项，生成完成度</small></div>
+            <div><span></span><b>岗位机会</b><small>分步查看，清楚选择下一步</small></div>
+            <div><span></span><b>面试训练</b><small>练一次，积累一次表达素材</small></div>
+          </div>
+        </aside>
+      </main>
+
+      <section class="landing-strip">
+        <div><b>01</b><span>上传简历</span></div>
+        <div><b>02</b><span>生成画像</span></div>
+        <div><b>03</b><span>分页匹配岗位</span></div>
+        <div><b>04</b><span>面试训练回写</span></div>
+      </section>
+    </div>
+  </section>
+
+  <div class="register-modal" id="registerModal" aria-hidden="true">
+    <div class="register-dialog">
+      <button class="modal-close" id="closeRegisterModal" aria-label="关闭">×</button>
+      <span class="landing-eyebrow">Create Account</span>
+      <h2>注册 SKY职忆账号</h2>
+      <p></p>
+      <div class="modal-form">
+        <label>用户名<input id="landingUsername" placeholder="例如 zhanglu" /></label>
+        <label>昵称<input id="landingNickname" placeholder="例如 SKY" /></label>
+        <label>邮箱，可选<input id="landingEmail" placeholder="you@example.com" /></label>
+      </div>
+      <button class="landing-primary modal-submit" id="modalRegisterBtn">完成注册并进入工作台</button>
+    </div>
+  </div>
+
+  <aside class="side-nav" id="sideNav">
+    <button class="mobile-close" id="closeSidebar" aria-label="关闭导航">×</button>
+    <a class="brand" data-page="home" href="javascript:void(0)">
+      <img src="assets/logo_sky_zhiyi.png" alt="SKY职忆 logo" />
+      <div>
+        <strong>SKY职忆</strong>
+        <span>Career Workspace</span>
+      </div>
+    </a>
+
+    <nav class="nav-group" id="mainNav">
+      <button class="nav-link active" data-page="home"><span></span>Home 总览</button>
+      <button class="nav-link" data-page="resume"><span></span>Resume 简历</button>
+      <button class="nav-link" data-page="jobs"><span></span>Jobs 岗位</button>
+      <button class="nav-link" data-page="interview"><span></span>Interview 面试</button>
+      <button class="nav-link" data-page="memory"><span></span>Memory 记忆库</button>
+      <button class="nav-link" data-page="builder"><span></span>Builder 生成</button>
+      <button class="nav-link" data-page="settings"><span></span>Settings 设置</button>
+    </nav>
+
+    <div class="sidebar-card">
+      <p>流程进度</p>
+      <b id="sidebarWorkflowText">还未开始准备</b>
+      <button class="text-btn" id="restartWorkflowBtn" data-page="resume">回到第一步</button>
+      <button class="text-btn reset-progress-btn" id="resetDemoBtn">一键清空</button>
+    </div>
+  </aside>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="打开导航">☰</button>
+        <div class="top-title">
+          <span id="crumbText">Home</span>
+          <strong id="pageTitle">求职工作台</strong>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="global-search">
+          <span>⌕</span>
+          <input id="globalSearch" placeholder="搜索岗位 / 记忆 / 面试问题" />
+        </div>
+        <button class="theme-toggle top-theme-toggle" id="themeToggle" type="button" aria-label="切换深色模式">🌙 深色</button>
+        <button class="tutorial-btn" id="tutorialBtn">使用教学</button>
+        <button class="icon-btn" id="quickToastBtn" title="通知">●</button>
+        <button class="primary-pill" data-page="resume">上传简历</button>
+      </div>
+    </header>
+
+    <main class="main-view">
+      <!-- HOME -->
+      <section class="page active-page" id="page-home">
+        <div class="dashboard-shell reveal-group">
+          <section class="dashboard-hero reveal-card">
+            <div>
+              <span class="eyebrow">Workspace Overview</span>
+              <h1>今天先完成最重要的求职动作。</h1>
+              <p>从上传简历开始，系统会一步一步帮你完成诊断、匹配和训练。每完成一个环节，求职流程都会向前推进。</p>
+            </div>
+            <div class="dashboard-score-card">
+              <span>简历健康度</span>
+              <strong id="readinessScore">待评估</strong>
+              <div class="bar"><i id="homeReadinessBar" style="width:0%"></i></div>
+            </div>
+          </section>
+
+          <section class="dashboard-card reveal-card soft-blue user-greeting-card">
+            <span>欢迎回来</span>
+            <strong id="homeUserName">Hi，寻路人</strong>
+            <p id="homeUserHint">先完成一个小步骤，今天的求职准备就会更清楚。</p>
+          </section>
+          <section class="dashboard-card reveal-card soft-green">
+            <span>求职记忆</span>
+            <strong id="homeMemoryCount">0</strong>
+            <p>已沉淀的可复用经历资产。</p>
+          </section>
+          <section class="dashboard-card reveal-card soft-amber">
+            <span>岗位机会</span>
+            <strong id="homeJobCount">0</strong>
+            <p>推荐岗位会在岗位页分页展示。</p>
+            <div class="bar"><i id="jobBar" style="width:20%"></i></div>
+          </section>
+
+          <section class="workspace-path reveal-card">
+            <div class="panel-heading">
+              <div><span class="mini-label">Next Actions</span><h3>下一步操作</h3></div>
+            </div>
+            <div class="workspace-path-grid">
+              <button data-page="resume"><b>简历工作台</b><span>上传/粘贴材料，生成健康度和缺失项</span></button>
+              <button data-page="builder"><b>智能简历生成</b><span>中英文模板、岗位定制、重复度检测和导出</span></button>
+              <button data-page="jobs"><b>岗位机会</b><span>按目标方向筛选机会，重点查看更适合你的岗位</span></button>
+              <button data-page="interview"><b>面试训练</b><span>单题切换练习，反馈自动回写记忆库</span></button>
+              <button data-page="memory"><b>求职记忆库</b><span>按类别分页管理求职资产</span></button>
+            </div>
+          </section>
+
+          <aside class="dashboard-side reveal-card">
+            <span class="mini-label">Guide</span>
+            <h3>按步骤推进，不用着急</h3>
+            <p>先完成简历导入，再看诊断结果；简历、岗位和面试分区呈现，每一步都更清楚。</p>
+            <button class="primary-btn" data-page="builder">生成定制简历</button>
+          </aside>
+        </div>
+      </section>
+
+      <!-- RESUME -->
+      <section class="page" id="page-resume">
+        <div class="page-head reveal-card roomy-head">
+          <div>
+            <span class="eyebrow">Resume Studio</span>
+            <h1>简历工作台</h1>
+            <p>工作台内不再放注册账号。这里专注于材料导入、智能解析、经历精炼和结果回写。</p>
+          </div>
+          <button class="ghost-btn" id="resetFlowBtn">重置流程</button>
+        </div>
+
+        <div class="wizard-layout roomy-layout">
+          <aside class="process-card reveal-card">
+            <div class="process-step active" data-step="0"><b>01</b><span>导入材料</span></div>
+            <div class="process-step" data-step="1"><b>02</b><span>智能解析</span></div>
+            <div class="process-step" data-step="2"><b>03</b><span>经历精炼</span></div>
+            <div class="process-step" data-step="3"><b>04</b><span>完成闭环</span></div>
+          </aside>
+
+          <section class="wizard-card reveal-card roomy-card">
+            <div class="flow-step active-step" data-step-panel="0">
+              <div class="step-header">
+                <span class="mini-label">Import</span>
+                <h2>导入简历或经历材料</h2>
+                <p>支持上传文件，也支持直接粘贴；保留原有后端上传接口。</p>
+              </div>
+              <div class="choice-row">
+                <button class="choice-card active" data-mode="hasResume"><b>我已有简历</b><span>适合正在投递的用户</span></button>
+                <button class="choice-card" data-mode="noResume"><b>我还没有简历</b><span>用自然语言整理经历</span></button>
+              </div>
+              <div class="upload-zone" id="uploadZone">
+                <div><h3>拖入或选择简历文件</h3><p>txt / md / pdf / docx，后端开启时自动读取。</p></div>
+                <label class="file-upload"><input type="file" id="resumeFile" accept=".txt,.md,.pdf,.docx" /><span>选择文件</span></label>
+                <div id="fileStatus" class="file-status">尚未选择文件</div>
+              </div>
+              <textarea id="resumeInput" rows="12" placeholder="粘贴简历、项目经历、实习经历、竞赛经历或课程成果..."></textarea>
+              <div class="step-actions">
+                <button class="ghost-btn" id="sampleBtn">填入示例</button>
+                <button class="primary-btn" id="toParseBtn">进入解析</button>
+              </div>
+            </div>
+
+            <div class="flow-step" data-step-panel="1">
+              <div class="step-header">
+                <span class="mini-label">Parse</span>
+                <h2>材料解析智能体</h2>
+                <p>提取教育背景、技能、经历类型、目标岗位与缺失字段。</p>
+              </div>
+              <div class="split-panels spacious-panels">
+                <div class="inner-panel"><h3>材料预览</h3><div id="materialPreview" class="preview-box">等待材料...</div></div>
+                <div class="inner-panel"><h3>解析过程 <span class="parse-scroll-tip">结果较多时可滚动查看</span></h3><div id="parseLoading" class="skeleton-area hidden"><div></div><div></div><div></div></div><div id="parseVisual" class="parse-visual"><div class="empty-state">点击运行后展示解析卡片。</div></div></div>
+              </div>
+              <details class="debug-details"><summary>结构化 JSON</summary><pre id="parseResult" class="json-box">尚未生成。</pre></details>
+              <div class="step-actions"><button class="ghost-btn" data-prev>上一步</button><button class="primary-btn" id="parseBtn">运行解析</button><button class="primary-btn muted-primary" id="toRefineBtn">进入精炼</button></div>
+            </div>
+
+            <div class="flow-step" data-step-panel="2">
+              <div class="step-header">
+                <span class="mini-label">Refine</span>
+                <h2>精炼为求职资产</h2>
+                <p>把材料写入长期记忆、过渡记忆或工作记忆。</p>
+              </div>
+              <div class="split-panels spacious-panels">
+                <div class="inner-panel"><h3>精炼结果</h3><div id="refineLoading" class="skeleton-area hidden"><div></div><div></div><div></div></div><div id="refineVisual" class="parse-visual"><div class="empty-state">点击后生成资产卡片。</div></div></div>
+                <div class="inner-panel"><h3>写入策略</h3><div class="strategy-list"><div><b>长期记忆</b><span>高价值经历</span></div><div><b>过渡记忆</b><span>反馈与近期目标</span></div><div><b>工作记忆</b><span>临时输入</span></div></div></div>
+              </div>
+              <details class="debug-details"><summary>结构化 JSON</summary><pre id="refineResult" class="json-box">等待精炼...</pre></details>
+              <div class="step-actions"><button class="ghost-btn" data-prev>上一步</button><button class="primary-btn" id="refineBtn">精炼并写入</button><button class="primary-btn muted-primary" id="finishFlowBtn">完成</button></div>
+            </div>
+
+            <div class="flow-step" data-step-panel="3">
+              <div class="complete-state">
+                <span class="success-dot">✓</span>
+                <h2>求职资产已建立</h2>
+                <p>现在可以进入岗位机会或面试训练，把同一份经历复用到不同求职场景。</p>
+                <div class="complete-grid">
+                  <button data-page="memory"><b>查看记忆库</b><span>管理已沉淀经历</span></button>
+                  <button data-page="jobs"><b>匹配岗位</b><span>分页查看推荐岗位</span></button>
+                  <button data-page="interview"><b>面试训练</b><span>生成追问与反馈</span></button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+
+      <!-- BUILDER -->
+      <section class="page" id="page-builder">
+        <div class="page-head reveal-card roomy-head">
+          <div>
+            <span class="eyebrow">Resume Builder</span>
+            <h1>智能简历生成</h1>
+            <p>把“简历解析、岗位匹配、求职记忆库”连接起来，生成中文或英文简历草稿。流程分步完成，不把模板、材料、预览和导出堆在一页。</p>
+          </div>
+          <button class="ghost-btn" id="builderResetBtn">重置生成器</button>
+        </div>
+
+        <div class="builder-layout roomy-layout">
+          <aside class="builder-steps reveal-card">
+            <div class="builder-step active" data-builder-step="0"><b>01</b><span>选择模板</span></div>
+            <div class="builder-step" data-builder-step="1"><b>02</b><span>目标岗位</span></div>
+            <div class="builder-step" data-builder-step="2"><b>03</b><span>AI生成</span></div>
+            <div class="builder-step" data-builder-step="3"><b>04</b><span>预览导出</span></div>
+          </aside>
+
+          <section class="builder-card reveal-card roomy-card">
+            <div class="builder-panel active-builder-panel" data-builder-panel="0">
+              <div class="step-header">
+                <span class="mini-label">Template</span>
+                <h2>选择简历语言和模板</h2>
+                <p>中文模板适合校招、实习、技术岗投递；英文模板适合英文 Resume、国际化岗位或双语材料。</p>
+              </div>
+              <div class="template-grid">
+                <button class="template-card active" data-template="cn">
+                  <span>中文模板</span><b>中文求职简历</b><small>教育背景 / 实习经历 / 校园经历 / 技能证书 / 自我评价</small>
+                </button>
+                <button class="template-card" data-template="en">
+                  <span>English Template</span><b>English Resume</b><small>Objective / Education / Skills / Job Experience / About Me</small>
+                </button>
+              </div>
+              <div class="builder-actions"><button class="primary-btn" data-builder-next>下一步：填写目标岗位</button></div>
+            </div>
+
+            <div class="builder-panel" data-builder-panel="1">
+              <div class="step-header">
+                <span class="mini-label">Target</span>
+                <h2>填写目标岗位与材料来源</h2>
+                <p>可以从岗位页带入岗位，也可以手动填写 JD。系统会优先使用已解析简历和求职记忆库。</p>
+              </div>
+              <div class="builder-form-grid">
+                <label>目标岗位<input id="builderTarget" placeholder="例如 Java开发工程师 / 数据分析实习生，可留空" /></label>
+                <label>目标城市<input id="builderCity" placeholder="例如 上海 / 杭州 / 长春，可选" /></label>
+                <label class="full-row">岗位 JD / 招聘要求<textarea id="builderJD" rows="6" placeholder="粘贴岗位要求，或者从岗位页点击“定制简历”自动带入..."></textarea></label>
+                <label class="full-row">补充材料<textarea id="builderExtra" rows="7" placeholder="可以补充个人信息、证书、项目成果、期望岗位等。留空时使用已导入简历和记忆库。"></textarea></label>
+              </div>
+              <div class="builder-actions"><button class="ghost-btn" data-builder-prev>上一步</button><button class="primary-btn" data-builder-next>下一步：生成草稿</button></div>
+            </div>
+
+            <div class="builder-panel" data-builder-panel="2">
+              <div class="step-header">
+                <span class="mini-label">Generate</span>
+                <h2>生成结构化简历内容</h2>
+                <p>先生成结构化 JSON，再填入预览和 Word 导出，避免 AI 自由发挥导致内容失控。</p>
+              </div>
+              <div class="builder-generate-grid">
+                <div class="inner-panel">
+                  <h3>创新诊断</h3>
+                  <div id="builderInnovationReport" class="innovation-report">
+                    <div class="empty-state">等待生成。系统会检查技能资本、岗位贴合度和经历重复风险。</div>
+                  </div>
+                </div>
+                <div class="inner-panel">
+                  <h3>生成过程</h3>
+                  <div id="builderLoading" class="skeleton-area hidden"><div></div><div></div><div></div></div>
+                  <pre id="builderJson" class="json-box">等待生成...</pre>
+                </div>
+              </div>
+              <div class="builder-actions"><button class="ghost-btn" data-builder-prev>上一步</button><button class="primary-btn" id="runBuilderBtn">一键生成简历</button><button class="primary-btn muted-primary" data-builder-next>查看预览</button></div>
+            </div>
+
+            <div class="builder-panel" data-builder-panel="3">
+              <div class="step-header">
+                <span class="mini-label">Preview</span>
+                <h2>预览与导出</h2>
+                <p>这里是可编辑预览，导出时会生成 docx 文件。</p>
+              </div>
+              <div class="resume-preview-wrap">
+                <article class="resume-preview" id="builderPreview">
+                  <div class="empty-state">请先生成简历草稿。</div>
+                </article>
+              </div>
+              <div class="builder-actions"><button class="ghost-btn" data-builder-prev>上一步</button><button class="ghost-btn" id="copyResumeBtn">复制简历文本</button><button class="primary-btn" id="exportResumeBtn">导出 Word</button></div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- JOBS -->
+      <section class="page" id="page-jobs">
+        <div class="page-head reveal-card">
+          <div>
+            <span class="eyebrow">Job Pipeline</span>
+            <h1>岗位机会</h1>
+            <p>像商业求职 CRM 一样检索、分页、收藏和推进岗位。</p>
+          </div>
+          <button class="primary-btn" id="matchJobsBtn">生成匹配</button>
+        </div>
+
+        <div class="jobs-layout">
+          <section class="filter-card reveal-card">
+            <label>目标岗位关键词<input id="jobKeyword" placeholder="产品 / 数据 / Java / 运营，可留空" /><small class="field-help">还不确定方向也没关系，留空点击“生成匹配”，先看看系统为你推荐的岗位。</small></label>
+            <label>城市偏好<input id="cityKeyword" placeholder="上海 / 杭州 / 长春，可留空" /></label>
+            <label>排序方式<select id="jobSort"><option value="score">按匹配度</option><option value="company">按公司名</option><option value="city">按城市</option></select></label>
+            <label>展示状态<select id="jobStatusFilter"><option value="all">全部岗位</option><option value="recommend">推荐中</option><option value="saved">已收藏</option><option value="applying">准备投递</option></select></label>
+          </section>
+
+          <section class="job-results reveal-card">
+            <div class="result-toolbar">
+              <div><h3>推荐岗位</h3><p id="jobResultInfo">可以输入岗位关键词，也可以留空直接生成通用推荐。</p></div>
+              <div class="job-page-hint">按页浏览</div>
+            </div>
+            <div class="job-tabs">
+              <button class="active" data-job-tab="recommend">推荐中</button>
+              <button data-job-tab="saved">已收藏</button>
+              <button data-job-tab="applying">准备投递</button>
+            </div>
+            <div class="job-grid" id="jobCardList"><div class="empty-card">不知道投什么岗位也可以直接点击“生成匹配”，先浏览一批通用推荐。</div></div>
+            <div class="pagination job-pagination" id="jobPagination"><button id="prevJobPage">上一页</button><div class="page-numbers" id="jobPageNumbers"><button class="page-num active" data-page="1">1页</button></div><button id="nextJobPage">下一页</button></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- INTERVIEW -->
+      <section class="page" id="page-interview">
+        <div class="page-head reveal-card">
+          <div>
+            <span class="eyebrow">Interview Studio</span>
+            <h1>面试训练</h1>
+            <p>按“选择岗位 → 生成题目 → 单题练习 → 评分回写”的流程演示。</p>
+          </div>
+          <button class="primary-btn" id="generateInterviewBtn">生成训练</button>
+        </div>
+
+        <div class="interview-layout">
+          <section class="interview-left reveal-card">
+            <div class="interview-top">
+              <label>目标岗位<input id="interviewJob" placeholder="例如 Java开发 / 数据分析 / 运营，可留空" /></label>
+              <div class="interview-steps"><span class="active">岗位</span><span>题目</span><span>练习</span><span>回写</span></div>
+            </div>
+            <div class="intro-card"><span class="mini-label">Self Intro</span><div id="selfIntroBox" class="answer-box">等待生成 1 分钟自我介绍...</div></div>
+            <div id="questionList" class="question-list">等待生成问题...</div>
+            <div class="question-pagination"><button id="prevQuestionBtn">上一题</button><span id="questionPageText">第 0 / 0 题</span><button id="nextQuestionBtn">下一题</button></div>
+          </section>
+
+          <aside class="interview-right reveal-card">
+            <div class="panel-heading"><div><span class="mini-label">Feedback</span><h3>反馈回写</h3></div></div>
+            <textarea id="feedbackInput" rows="7" placeholder="面试后记录：哪里卡壳了？HR追问了什么？下次要怎么改？"></textarea>
+            <button class="primary-btn wide-btn" id="saveFeedbackBtn">保存为面试反馈记忆</button>
+            <div class="score-hints">
+              <div><b>STAR</b><span>结构完整</span></div>
+              <div><b>Data</b><span>量化结果</span></div>
+              <div><b>Role</b><span>本人职责</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- MEMORY -->
+      <section class="page" id="page-memory">
+        <div class="page-head reveal-card">
+          <div>
+            <span class="eyebrow">Career Memory</span>
+            <h1>求职记忆库</h1>
+            <p>按类别和分页管理求职资产，而不是把所有记录平铺在一页。</p>
+          </div>
+          <div class="button-row"><button class="ghost-btn" id="clearMemoryBtn">清空</button><button class="primary-btn" id="exportMemoryBtn">导出 JSON</button></div>
+        </div>
+
+        <section class="memory-board reveal-card">
+          <div class="memory-toolbar">
+            <div class="memory-tabs">
+              <button class="active" data-memory-tab="all">全部</button>
+              <button data-memory-tab="project">项目经历</button>
+              <button data-memory-tab="skill">技能证书</button>
+              <button data-memory-tab="interview">面试反馈</button>
+            </div>
+            <div class="page-size-control"><span>每页</span><select id="memoryPageSize"><option value="4" selected>4</option><option value="6">6</option><option value="8">8</option></select></div>
+          </div>
+          <div class="memory-grid" id="memoryList"><div class="empty-card">暂无记忆，请先完成材料导入。</div></div>
+          <div class="pagination" id="memoryPagination"><button id="prevMemoryPage">上一页</button><span id="memoryPageText">第 1 页</span><button id="nextMemoryPage">下一页</button></div>
+        </section>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="page" id="page-settings">
+        <div class="page-head reveal-card roomy-head">
+          <div>
+            <span class="eyebrow">Settings</span>
+            <h1>账号设置</h1>
+            <p>修改用户名、查看简历健康度，并快速进入个人主页。</p>
+          </div>
+        </div>
+        <div class="settings-grid settings-grid-clean">
+          <section class="settings-card reveal-card account-card username-card">
+            <div class="settings-kicker">User Name</div>
+            <h3 id="settingsUserName">Hi，寻路人</h3>
+            <p id="settingsUserHint">可以修改工作台里显示的称呼。</p>
+            <div class="settings-name-form">
+              <label>显示用户名<input id="settingsNameInput" placeholder="例如 SKY" /></label>
+              <button class="ghost-btn" id="saveSettingsNameBtn">保存用户名</button>
+            </div>
+          </section>
+          <section class="settings-card reveal-card resume-health-card">
+            <div class="settings-kicker">Resume Health</div>
+            <h3 id="settingsResumeHealth">待评估</h3>
+            <p id="settingsResumeText">上传并完成诊断后，这里会显示真实的简历健康度。</p>
+            <div class="bar"><i id="settingsHealthBar" style="width:0%"></i></div>
+          </section>
+          <section class="settings-card reveal-card profile-card">
+            <div class="settings-kicker">Profile</div>
+            <h3>我的个人主页</h3>
+            <p>查看项目仓库、作品和后续更新。</p>
+            <a class="ghost-btn profile-link" href="https://github.com/lovesky514514-cmd" target="_blank" rel="noopener noreferrer">打开 GitHub 主页</a>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/main.js?v=demo_name_zhangsan_1"></script>
+</body>
+</html>
