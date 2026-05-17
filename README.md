@@ -229,7 +229,7 @@ wx.uploadFile
 
 ## 安全与脱敏说明
 
-公开仓库中不要提交以下内容：
+公开仓库中不包含以下内容：
 
 - `backend/.env`
 - API Key
@@ -245,7 +245,7 @@ wx.uploadFile
 backend/.env.example
 ```
 
-真实 API Key 请只保存在本地或服务器环境中。
+真实 API Key 只保存在本地或服务器环境中。
 
 ---
 
